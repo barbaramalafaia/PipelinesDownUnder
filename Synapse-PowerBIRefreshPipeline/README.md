@@ -41,5 +41,5 @@ Data Engineer | Microsoft Data Platform Enthusiast
 📍 Originally from Minas Gerais, Brazil 🇧🇷 | Living in Australia since 2022 🇦🇺  
 🔗 [LinkedIn](https://www.linkedin.com/in/barbaramalafaia) | [Medium](https://medium.com/@barbaramalafaia)
 
-☕ If my content helps you save time, learn something new, or troubleshoot an issue, consider [buying me a coffee] (https://buymeacoffee.com/barbaramalafaia)
+☕ If my content helps you save time, learn something new, or troubleshoot an issue, consider [buying me a coffee](https://buymeacoffee.com/barbaramalafaia)
 
