@@ -13,7 +13,7 @@ This repository contains the JSON definition of an Azure Synapse pipeline that s
 
 For a detailed step-by-step walkthrough on how to configure permissions, create the pipeline, and monitor the refresh status, check out the full blog post on Medium:
 
-👉 [How to Trigger a Power BI Semantic Model Refresh from a Synapse Pipeline](https://medium.com/@barbaramalafaia/how-to-trigger-a-power-bi-semantic-model-refresh-from-a-synapse-pipeline-xxxxxx)  
+👉 [How to Trigger a Power BI Semantic Model Refresh from a Synapse Pipeline](https://medium.com/@barbaramalafaia/how-to-trigger-a-power-bi-semantic-model-refresh-from-a-synapse-pipeline-75e78fc2db39)  
 _(Replace the Medium URL above once published)_
 
 ## 🛠️ Technologies Used
@@ -40,3 +40,6 @@ Barbara Malafaia
 Data Engineer | Microsoft Data Platform Enthusiast  
 📍 Originally from Minas Gerais, Brazil 🇧🇷 | Living in Australia since 2022 🇦🇺  
 🔗 [LinkedIn](https://www.linkedin.com/in/barbaramalafaia) | [Medium](https://medium.com/@barbaramalafaia)
+
+☕ If my content helps you save time, learn something new, or troubleshoot an issue, consider [buying me a coffee] (https://buymeacoffee.com/barbaramalafaia)
+
