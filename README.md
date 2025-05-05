@@ -10,7 +10,7 @@ Each folder in this repository corresponds to a blog post and contains working c
 
 | Title | Description | Link |
 |-------|-------------|------|
-| **SynapsePipeline-RefreshesPowerBIDataset** | Trigger and monitor a Power BI dataset refresh from a Synapse pipeline using Managed Identity and REST API. | [Read the blog post](https://medium.com/@barbaramalafaia/how-to-trigger-a-power-bi-semantic-model-refresh-from-a-synapse-pipeline-...) |
+| **SynapsePipeline-RefreshesPowerBIDataset** | Trigger and monitor a Power BI dataset refresh from a Synapse pipeline using Managed Identity and REST API. | [Read the blog post](https://medium.com/@barbaramalafaia/how-to-trigger-a-power-bi-semantic-model-refresh-from-a-synapse-pipeline-75e78fc2db39) |
 
 > 🔄 More posts (and folders) coming soon!
 
