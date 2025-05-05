@@ -28,7 +28,7 @@ I'm Barbara Malafaia — a data engineer passionate about automation, cloud-nati
 
 Follow along on [Medium](https://medium.com/@barbaramalafaia), or connect with me on [LinkedIn](https://www.linkedin.com/in/barbaramalafaia/).
 
-☕ If my content helps you save time, learn something new, or troubleshoot an issue, consider [buying me a coffee] (https://buymeacoffee.com/barbaramalafaia)
+☕ If my content helps you save time, learn something new, or troubleshoot an issue, consider [buying me a coffee](https://buymeacoffee.com/barbaramalafaia)
 
 ---
 
