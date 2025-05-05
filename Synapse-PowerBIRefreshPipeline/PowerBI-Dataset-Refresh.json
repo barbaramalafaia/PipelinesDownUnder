@@ -1,0 +1,199 @@
+{
+    "name": "PowerBI-Dataset-Refresh",
+    "properties": {
+        "activities": [
+            {
+                "name": "Refresh PBI Dataset",
+                "type": "WebActivity",
+                "dependsOn": [],
+                "policy": {
+                    "timeout": "0.00:10:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "method": "POST",
+                    "url": {
+                        "value": "@concat('https://api.powerbi.com/v1.0/myorg/groups/',pipeline().parameters.WorkspaceGuidId,'/datasets/',pipeline().parameters.DatasetGuidId,'/refreshes')",
+                        "type": "Expression"
+                    },
+                    "connectVia": {
+                        "referenceName": "AutoResolveIntegrationRuntime",
+                        "type": "IntegrationRuntimeReference"
+                    },
+                    "body": {
+                        "notifyOption": "NoNotification"
+                    },
+                    "authentication": {
+                        "type": "MSI",
+                        "resource": "https://analysis.windows.net/powerbi/api"
+                    }
+                }
+            },
+            {
+                "name": "Until Refresh Complete",
+                "type": "Until",
+                "dependsOn": [
+                    {
+                        "activity": "Refresh PBI Dataset",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "userProperties": [],
+                "typeProperties": {
+                    "expression": {
+                        "value": "@not(equals(variables('RefreshStatus'), 'Unknown'))",
+                        "type": "Expression"
+                    },
+                    "activities": [
+                        {
+                            "name": "Get PBI Dataset Refreshes",
+                            "type": "WebActivity",
+                            "dependsOn": [],
+                            "policy": {
+                                "timeout": "0.00:10:00",
+                                "retry": 0,
+                                "retryIntervalInSeconds": 30,
+                                "secureOutput": false,
+                                "secureInput": false
+                            },
+                            "userProperties": [],
+                            "typeProperties": {
+                                "method": "GET",
+                                "url": {
+                                    "value": "@concat('https://api.powerbi.com/v1.0/myorg/groups/',pipeline().parameters.WorkspaceGuidId,'/datasets/',pipeline().parameters.DatasetGuidId,'/refreshes')",
+                                    "type": "Expression"
+                                },
+                                "connectVia": {
+                                    "referenceName": "AutoResolveIntegrationRuntime",
+                                    "type": "IntegrationRuntimeReference"
+                                },
+                                "authentication": {
+                                    "type": "MSI",
+                                    "resource": "https://analysis.windows.net/powerbi/api"
+                                }
+                            }
+                        },
+                        {
+                            "name": "Set Refresh Status",
+                            "type": "SetVariable",
+                            "dependsOn": [
+                                {
+                                    "activity": "Get PBI Dataset Refreshes",
+                                    "dependencyConditions": [
+                                        "Succeeded"
+                                    ]
+                                }
+                            ],
+                            "policy": {
+                                "secureOutput": false,
+                                "secureInput": false
+                            },
+                            "userProperties": [],
+                            "typeProperties": {
+                                "variableName": "RefreshStatus",
+                                "value": {
+                                    "value": "@activity('Get PBI Dataset Refreshes').output.value[0].status",
+                                    "type": "Expression"
+                                }
+                            }
+                        },
+                        {
+                            "name": "Switch Refresh Status",
+                            "type": "Switch",
+                            "dependsOn": [
+                                {
+                                    "activity": "Set Refresh Status",
+                                    "dependencyConditions": [
+                                        "Succeeded"
+                                    ]
+                                }
+                            ],
+                            "userProperties": [],
+                            "typeProperties": {
+                                "on": {
+                                    "value": "@variables('RefreshStatus')",
+                                    "type": "Expression"
+                                },
+                                "cases": [
+                                    {
+                                        "value": "Unknown",
+                                        "activities": [
+                                            {
+                                                "name": "Wait - Status Unknown",
+                                                "type": "Wait",
+                                                "dependsOn": [],
+                                                "userProperties": [],
+                                                "typeProperties": {
+                                                    "waitTimeInSeconds": 10
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "value": "Completed",
+                                        "activities": [
+                                            {
+                                                "name": "Wait - Refresh Completed",
+                                                "type": "Wait",
+                                                "dependsOn": [],
+                                                "userProperties": [],
+                                                "typeProperties": {
+                                                    "waitTimeInSeconds": 1
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "value": "Failed",
+                                        "activities": [
+                                            {
+                                                "name": "Dataset Refresh Failed",
+                                                "type": "Fail",
+                                                "dependsOn": [],
+                                                "userProperties": [],
+                                                "typeProperties": {
+                                                    "message": {
+                                                        "value": "\n@concat(\n    'Dataset refresh failed. Check the Refresh history at '\n    ,'https://app.powerbi.com/groups/'\n    ,pipeline().parameters.WorkspaceGuidId\n    ,'/datasets/'\n    ,pipeline().parameters.DatasetGuidId\n    ,'/details'\n)",
+                                                        "type": "Expression"
+                                                    },
+                                                    "errorCode": "5000"
+                                                }
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        }
+                    ],
+                    "timeout": "0.02:00:00"
+                }
+            }
+        ],
+        "parameters": {
+            "WorkspaceGuidId": {
+                "type": "string",
+                "defaultValue": "5b4963f0-eeca-4d61-8d7a-b5e87cd7e044"
+            },
+            "DatasetGuidId": {
+                "type": "string",
+                "defaultValue": "da3f0eb9-0736-430e-8de6-417e1baf951a"
+            }
+        },
+        "variables": {
+            "RefreshStatus": {
+                "type": "String",
+                "defaultValue": "Unknown"
+            }
+        },
+        "folder": {
+            "name": "Test"
+        },
+        "annotations": []
+    }
+}
