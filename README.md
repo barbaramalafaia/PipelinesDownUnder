@@ -22,7 +22,7 @@ Each folder in this repository corresponds to a blog post and contains working c
 - Azure AD & Managed Identities
 - CI/CD for Data Pipelines
 
-## 🧑‍💻 About Me
+## 👩 💻 About Me
 
 I'm Barbara Malafaia — a data engineer passionate about automation, cloud-native data architecture, and sharing what I learn. Originally from Minas Gerais, Brazil 🇧🇷, and living in Australia 🇦🇺 since 2022.
 
